@@ -6,6 +6,9 @@ export default defineConfig({
     entrypoint: "vinext/server/fetch-handler",
     compatibilityDate: "2026-10-29",
     compatibilityFlags: ["nodejs_compat"],
+    workersDev: false,
+    previewUrls: false,
+    domains: ["atocem.com"],
     assets: {
       htmlHandling: "none",
       notFoundHandling: "none",
@@ -15,6 +18,13 @@ export default defineConfig({
       ASSETS: bindings.assets(),
       IMAGES: bindings.images(),
       VINEXT_KV_CACHE: bindings.kv(),
+    },
+    observability: {
+      enabled: true,
+      headSamplingRate: 1,
+      logs: {
+        invocationLogs: true,
+      },
     },
   }),
 });
