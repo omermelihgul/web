@@ -5,6 +5,8 @@ import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Script from "next/script";
 
+import { ThemeProvider } from "@/components/theme-provider";
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -36,8 +38,18 @@ export default function RootLayout({
         interTight.variable,
         jetbrainsMono.variable,
       )}
+      suppressHydrationWarning
     >
-      <body>{children}</body>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
       <Script
         src="https://scripts.simpleanalyticscdn.com/latest.js"
         data-collect-dnt="true"
