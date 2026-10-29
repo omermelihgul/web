@@ -1,6 +1,8 @@
 export const dynamic = "force-static";
 
+import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 const links = [
   {
@@ -12,6 +14,22 @@ const links = [
     label: "Workers",
   },
 ];
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({
+    locale,
+    namespace: "HomePage",
+  });
+
+  return {
+    description: t("description"),
+  };
+}
 
 export default function Home() {
   const t = useTranslations("HomePage");
